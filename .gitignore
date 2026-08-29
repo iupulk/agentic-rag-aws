@@ -1,0 +1,27 @@
+# --- Secrets: never commit ---
+.env
+
+# --- Terraform ---
+# .terraform/ is a local cache of downloaded provider plugins - big, and
+# regenerated automatically by `terraform init`. Never needs to be tracked.
+terraform/.terraform/
+# State files can contain sensitive values and are specific to whoever last
+# ran apply - never commit them.
+terraform/*.tfstate
+terraform/*.tfstate.*
+# .tfvars often holds environment-specific or sensitive values.
+terraform/*.tfvars
+terraform/crash.log
+# NOTE: terraform/.terraform.lock.hcl is deliberately NOT ignored below -
+# that file SHOULD be committed, it pins exact provider versions.
+
+# --- Python (for the Lambda app code, later) ---
+__pycache__/
+*.pyc
+.venv/
+
+# --- OS / editor junk ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
