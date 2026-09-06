@@ -30,3 +30,12 @@ resource "aws_s3_bucket_versioning" "docs" {
     status = "Enabled"
   }
 }
+
+resource "aws_s3_object" "docs" {
+  for_each = fileset("${path.module}/../sample_docs", "*.docx")
+
+  bucket = aws_s3_bucket.docs.id
+  key    = each.value
+  source = "${path.module}/../sample_docs/${each.value}"
+  etag   = filemd5("${path.module}/../sample_docs/${each.value}")
+}
